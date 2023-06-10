@@ -18,7 +18,7 @@ const roboSlice = createSlice({
 		addDirection: (state, action) => {
 			state.Directions.push(action.payload);
 		},
-		removeDirection: (state, action) => {
+		deleteDirection: (state) => {
 			state.Directions.pop();
 		},
 		clearDirections: (state) => {
@@ -30,7 +30,8 @@ const roboSlice = createSlice({
 	},
 });
 
-export const { addDirection, setPosition } = roboSlice.actions;
+export const { addDirection, setPosition, clearDirections, deleteDirection } =
+	roboSlice.actions;
 export const getDirections = (state: RootState) => state.robo.Directions;
 export const getPosition = (state: RootState) => state.robo.Position;
 
