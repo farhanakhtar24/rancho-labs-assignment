@@ -12,6 +12,7 @@ import {
 	addDirection,
 	clearDirections,
 	deleteDirection,
+	reset,
 	getDirections,
 	setPosition,
 	getPosition,
@@ -68,11 +69,14 @@ const FunctionalPanel = (props: Props) => {
 						break;
 				}
 			} else {
-				// setDirectionArray([]);
-				setPlaying(false);
+				setDirectionArray([]);
+				dispatch(clearDirections());
 				setCount(0);
+				setPlaying(false);
+				return;
 			}
 			setCount(count + 1);
+			console.log(directionArray);
 		},
 		// Delay in milliseconds or null to stop it
 		isPlaying ? 250 : null
@@ -130,25 +134,22 @@ const FunctionalPanel = (props: Props) => {
 				<div className="flex gap-2">
 					<div
 						className="w-12 h-12 bg-slate-200 rounded flex justify-center items-center text-4xl cursor-pointer"
-						onClick={
-							() => {
-								setDirectionArray(
-									directionArray.slice(
-										0,
-										directionArray.length - 1
-									)
-								);
-								dispatch(deleteDirection());
-							}
-							// remove last element
-						}>
+						onClick={() => {
+							setDirectionArray(
+								directionArray.slice(
+									0,
+									directionArray.length - 1
+								)
+							);
+							dispatch(deleteDirection());
+						}}>
 						<Backspace />
 					</div>
 					<div
 						className="w-12 h-12 bg-slate-200 rounded flex justify-center items-center text-4xl cursor-pointer rotate-180"
 						onClick={() => {
 							setDirectionArray([]);
-							dispatch(clearDirections());
+							dispatch(reset());
 						}}>
 						<Reset />
 					</div>
@@ -159,6 +160,10 @@ const FunctionalPanel = (props: Props) => {
 							if (directionArray.length === 0)
 								return alert("Please add directions");
 							setPlaying(true);
+							console.log("directionArray", directionArray);
+							console.log("position", position);
+							console.log("count", count);
+							console.log("isPlaying", isPlaying);
 						}}>
 						<PlayIcon className="w-10 h-10" />
 						<span className="pr-2">Play</span>
