@@ -34,7 +34,7 @@ const GridSquare = ({
 };
 
 const SimulationGrid = () => {
-	const [x, y] = useAppSelector(getPosition);
+	const { x, y } = useAppSelector(getPosition);
 
 	return (
 		<div className="flex justify-center items-center h-full">

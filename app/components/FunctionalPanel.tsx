@@ -16,17 +16,18 @@ import {
 	getDirections,
 	setPosition,
 	getPosition,
+	getIsPlaying,
+	setPlay,
 } from "../redux Toolkit/slice/RoboSlice";
 import { useInterval } from "usehooks-ts";
 
 type Props = {};
 
 const FunctionalPanel = (props: Props) => {
-	const [count, setCount] = useState<number>(0);
-	const [isPlaying, setPlaying] = useState<boolean>(false);
-
 	const dispatch = useAppDispatch();
+	const [count, setCount] = useState<number>(0);
 	const position = useAppSelector(getPosition);
+	const isPlaying = useAppSelector(getIsPlaying);
 	const [directionArray, setDirectionArray] = useState<string[]>(
 		useAppSelector(getDirections)
 	);
@@ -52,31 +53,35 @@ const FunctionalPanel = (props: Props) => {
 	useInterval(
 		() => {
 			if (count < directionArray.length) {
-				switch (directionArray[count]) {
-					case "Left":
-						dispatch(setPosition([position[0] - 1, position[1]]));
-						break;
-					case "Right":
-						dispatch(setPosition([position[0] + 1, position[1]]));
-						break;
-					case "Up":
-						dispatch(setPosition([position[0], position[1] - 1]));
-						break;
-					case "Down":
-						dispatch(setPosition([position[0], position[1] + 1]));
-						break;
-					default:
-						break;
+				if (directionArray[count] === "Left" && position.x > 0) {
+					dispatch(setPosition({ x: position.x - 1, y: position.y }));
+				} else if (
+					directionArray[count] === "Right" &&
+					position.x < 4
+				) {
+					dispatch(setPosition({ x: position.x + 1, y: position.y }));
+				} else if (directionArray[count] === "Up" && position.y > 0) {
+					dispatch(setPosition({ x: position.x, y: position.y - 1 }));
+				} else if (directionArray[count] === "Down" && position.y < 4) {
+					dispatch(setPosition({ x: position.x, y: position.y + 1 }));
+				} else {
+					alert("Robot is out of bounds");
+					setDirectionArray([]);
+					dispatch(clearDirections());
+					setCount(0);
+					dispatch(reset());
+					dispatch(setPlay(false));
+					return;
 				}
 			} else {
+				alert("Robot has reached the end");
 				setDirectionArray([]);
 				dispatch(clearDirections());
 				setCount(0);
-				setPlaying(false);
+				dispatch(setPlay(false));
 				return;
 			}
 			setCount(count + 1);
-			console.log(directionArray);
 		},
 		// Delay in milliseconds or null to stop it
 		isPlaying ? 250 : null
@@ -159,11 +164,7 @@ const FunctionalPanel = (props: Props) => {
 						onClick={() => {
 							if (directionArray.length === 0)
 								return alert("Please add directions");
-							setPlaying(true);
-							console.log("directionArray", directionArray);
-							console.log("position", position);
-							console.log("count", count);
-							console.log("isPlaying", isPlaying);
+							dispatch(setPlay(true));
 						}}>
 						<PlayIcon className="w-10 h-10" />
 						<span className="pr-2">Play</span>

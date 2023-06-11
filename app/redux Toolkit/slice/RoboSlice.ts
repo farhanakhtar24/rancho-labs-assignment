@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import { useInterval } from "usehooks-ts";
+import { stat } from "fs";
 
 interface RoboState {
 	Directions: string[];
-	Position: number[];
+	Position: { x: number; y: number };
+	IsPlaying: boolean;
 }
 
 const initialState: RoboState = {
 	Directions: [],
-	Position: [0, 0],
+	Position: {
+		x: 0,
+		y: 0,
+	},
+	IsPlaying: false,
 };
 
 const roboSlice = createSlice({
@@ -27,10 +33,13 @@ const roboSlice = createSlice({
 		},
 		reset: (state) => {
 			state.Directions = [];
-			state.Position = [0, 0];
+			state.Position = { x: 0, y: 0 };
 		},
 		setPosition: (state, action) => {
 			state.Position = action.payload;
+		},
+		setPlay: (state, action) => {
+			state.IsPlaying = action.payload;
 		},
 	},
 });
@@ -41,8 +50,10 @@ export const {
 	clearDirections,
 	deleteDirection,
 	reset,
+	setPlay,
 } = roboSlice.actions;
 export const getDirections = (state: RootState) => state.robo.Directions;
 export const getPosition = (state: RootState) => state.robo.Position;
+export const getIsPlaying = (state: RootState) => state.robo.IsPlaying;
 
 export default roboSlice.reducer;
