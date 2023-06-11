@@ -52,6 +52,7 @@ export const {
 	reset,
 	setPlay,
 } = roboSlice.actions;
+
 export const getDirections = (state: RootState) => state.robo.Directions;
 export const getPosition = (state: RootState) => state.robo.Position;
 export const getIsPlaying = (state: RootState) => state.robo.IsPlaying;

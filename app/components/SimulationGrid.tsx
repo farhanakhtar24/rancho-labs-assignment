@@ -39,7 +39,10 @@ const SimulationGrid = () => {
 	return (
 		<div className="flex justify-center items-center h-full">
 			{/* {make a grid of 25 boxes with 5 rows and 5 coloumns} */}
-			<div className="w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl">
+			<div
+				className={`w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl ${
+					x === 4 && y === 4 ? "" : ""
+				}`}>
 				{[...Array(25)].map((_, i) => (
 					<GridSquare
 						key={i}

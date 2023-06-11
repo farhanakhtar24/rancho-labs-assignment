@@ -67,17 +67,16 @@ const FunctionalPanel = (props: Props) => {
 				} else {
 					alert("Robot is out of bounds");
 					setDirectionArray([]);
-					dispatch(clearDirections());
 					setCount(0);
 					dispatch(reset());
 					dispatch(setPlay(false));
 					return;
 				}
 			} else {
-				alert("Robot has reached the end");
+				alert("Robot has finished its path");
 				setDirectionArray([]);
-				dispatch(clearDirections());
 				setCount(0);
+				dispatch(reset());
 				dispatch(setPlay(false));
 				return;
 			}
