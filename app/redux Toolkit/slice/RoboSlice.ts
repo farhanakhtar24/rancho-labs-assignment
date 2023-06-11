@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
+import { useInterval } from "usehooks-ts";
 
 interface RoboState {
 	Directions: string[];
@@ -23,6 +24,7 @@ const roboSlice = createSlice({
 		},
 		clearDirections: (state) => {
 			state.Directions = [];
+			state.Position = [0, 0];
 		},
 		setPosition: (state, action) => {
 			state.Position = action.payload;

@@ -1,23 +1,34 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { HiArrowSmDown } from "react-icons/hi";
 import { HiArrowSmLeft } from "react-icons/hi";
 import { HiArrowSmRight } from "react-icons/hi";
 import { HiArrowSmUp } from "react-icons/hi";
 import { TbBackspace as Backspace } from "react-icons/tb";
 import { GrPowerReset as Reset } from "react-icons/gr";
-import { useAppDispatch } from "../redux Toolkit/hooks";
+import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
+import { useAppDispatch, useAppSelector } from "../redux Toolkit/hooks";
 import {
 	addDirection,
 	clearDirections,
 	deleteDirection,
+	getDirections,
+	setPosition,
+	getPosition,
 } from "../redux Toolkit/slice/RoboSlice";
+import { useInterval } from "usehooks-ts";
 
 type Props = {};
 
 const FunctionalPanel = (props: Props) => {
+	const [count, setCount] = useState<number>(0);
+	const [isPlaying, setPlaying] = useState<boolean>(false);
+
 	const dispatch = useAppDispatch();
-	const [directionArray, setDirectionArray] = React.useState<string[]>([]);
+	const position = useAppSelector(getPosition);
+	const [directionArray, setDirectionArray] = useState<string[]>(
+		useAppSelector(getDirections)
+	);
 
 	const validateDirection = (direction: string) => {
 		if (directionArray.length <= 13) {
@@ -35,8 +46,37 @@ const FunctionalPanel = (props: Props) => {
 	const handleOnDrop = (e: React.DragEvent) => {
 		const newDirection = e.dataTransfer.getData("direction") as string;
 		validateDirection(newDirection);
-		console.log(directionArray);
 	};
+
+	useInterval(
+		() => {
+			if (count < directionArray.length) {
+				switch (directionArray[count]) {
+					case "Left":
+						dispatch(setPosition([position[0] - 1, position[1]]));
+						break;
+					case "Right":
+						dispatch(setPosition([position[0] + 1, position[1]]));
+						break;
+					case "Up":
+						dispatch(setPosition([position[0], position[1] - 1]));
+						break;
+					case "Down":
+						dispatch(setPosition([position[0], position[1] + 1]));
+						break;
+					default:
+						break;
+				}
+			} else {
+				// setDirectionArray([]);
+				setPlaying(false);
+				setCount(0);
+			}
+			setCount(count + 1);
+		},
+		// Delay in milliseconds or null to stop it
+		isPlaying ? 250 : null
+	);
 
 	return (
 		<div className="w-full flex flex-col">
@@ -111,6 +151,17 @@ const FunctionalPanel = (props: Props) => {
 							dispatch(clearDirections());
 						}}>
 						<Reset />
+					</div>
+					{/* play button */}
+					<div
+						className="h-12 px-3 bg-slate-200 rounded flex items-center text-xl cursor-pointer font-bold"
+						onClick={() => {
+							if (directionArray.length === 0)
+								return alert("Please add directions");
+							setPlaying(true);
+						}}>
+						<PlayIcon className="w-10 h-10" />
+						<span className="pr-2">Play</span>
 					</div>
 				</div>
 			</div>
