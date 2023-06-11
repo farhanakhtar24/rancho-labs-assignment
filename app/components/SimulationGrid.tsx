@@ -24,7 +24,7 @@ const GridSquare = ({
 			}`}>
 			{x_square === x_robo && y_square === y_robo ? (
 				<div className="w-full h-full flex justify-center items-center">
-					<Robot className="text-3xl text-yellow-50" />
+					<Robot className={`text-3xl text-yellow-50`} />
 				</div>
 			) : (
 				""
@@ -40,9 +40,9 @@ const SimulationGrid = () => {
 		<div className="flex justify-center items-center h-full">
 			{/* {make a grid of 25 boxes with 5 rows and 5 coloumns} */}
 			<div
-				className={`w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl ${
-					x === 4 && y === 4 ? "" : ""
-				}`}>
+				className={`w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl 
+					${x === 4 && y === 4 ? "animate-spin duration-300" : "animate-none"}
+				`}>
 				{[...Array(25)].map((_, i) => (
 					<GridSquare
 						key={i}
