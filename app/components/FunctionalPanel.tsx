@@ -19,6 +19,7 @@ import {
 	setPlay,
 	getHasPlayed,
 	setHasPlayed,
+	setInstructions,
 } from "../redux Toolkit/slice/RoboSlice";
 import { useInterval } from "usehooks-ts";
 
@@ -67,17 +68,32 @@ const FunctionalPanel = (props: Props) => {
 				} else if (directionArray[count] === "Down" && position.y < 4) {
 					dispatch(setPosition({ x: position.x, y: position.y + 1 }));
 				} else {
-					alert("Robot is trying to move out of bounds");
+					dispatch(
+						setInstructions(
+							`Robot is trying to move out of bounds.`
+						)
+					);
 					setCount(0);
 					dispatch(setPlay(false));
 					return;
 				}
+				dispatch(
+					setInstructions(`Robot Move ${directionArray[count]}.`)
+				);
 			} else {
-				// if (position.x === 4 && position.y === 4) {
-				// 	alert("Robot has reached the destination point");
-				// } else {
-				// 	alert("Robot has not reached the destination point");
-				// }
+				if (position.x === 4 && position.y === 4) {
+					dispatch(
+						setInstructions(
+							"Robot has reached the destination point"
+						)
+					);
+				} else {
+					dispatch(
+						setInstructions(
+							"Robot has not reached the destination point"
+						)
+					);
+				}
 				setCount(0);
 				dispatch(setPlay(false));
 				return;
