@@ -1,9 +1,12 @@
 import React from "react";
 import { VscCircleLarge as TbCircle } from "react-icons/vsc";
+import { useAppSelector } from "../redux Toolkit/hooks";
+import { getInstructions } from "../redux Toolkit/slice/RoboSlice";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+	const instructions = useAppSelector(getInstructions);
 	return (
 		<div className="w-full bg-indigo-950 px-5 py-5 font-semibold text-white flex items-center justify-between">
 			<span className="text-2xl w-1/3">Navbar</span>

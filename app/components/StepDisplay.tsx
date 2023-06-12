@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux Toolkit/hooks";
 import { useFetch } from "usehooks-ts";
