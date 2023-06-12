@@ -16,8 +16,10 @@ const GridSquare = ({ x_square, y_square, x_robo, y_robo }: Props) => {
 					? "bg-cyan-500"
 					: "bg-yellow-500"
 			}`}>
+			{/* Check if the current square is occupied by the robot */}
 			{x_square === x_robo && y_square === y_robo ? (
 				<div className="w-full h-full flex justify-center items-center">
+					{/* Render the robot icon */}
 					<Robot
 						className={`text-3xl ${
 							x_robo === 4 && y_robo === 4

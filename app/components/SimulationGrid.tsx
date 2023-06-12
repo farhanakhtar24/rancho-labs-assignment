@@ -7,14 +7,16 @@ import GridSquare from "./GridSquare";
 type Props = {};
 
 const SimulationGrid = () => {
+	// Get the current position of the robot from the Redux store
 	const { x, y } = useAppSelector(getPosition);
 
 	return (
 		<div className="flex justify-center items-center h-full">
-			{/* {make a grid of 25 boxes with 5 rows and 5 coloumns} */}
+			{/* Render a grid of 25 boxes with 5 rows and 5 columns */}
 			<div
 				className={`w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl 
 				`}>
+				{/* Map over an array of length 25 to create each grid square */}
 				{[...Array(25)].map((_, i) => (
 					<GridSquare
 						key={i}

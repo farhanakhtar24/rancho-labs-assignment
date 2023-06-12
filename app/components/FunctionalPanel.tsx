@@ -29,6 +29,7 @@ type Props = {};
 const FunctionalPanel = (props: Props) => {
 	const dispatch = useAppDispatch();
 
+	// Retrieving state values from Redux store
 	const position = useAppSelector(getPosition);
 	const isPlaying = useAppSelector(getIsPlaying);
 	const hasPlayed = useAppSelector(getHasPlayed);
@@ -38,6 +39,7 @@ const FunctionalPanel = (props: Props) => {
 
 	const [count, setCount] = useState<number>(0);
 
+	// Function to validate and add a direction to the directionArray
 	const validateDirection = (direction: string) => {
 		if (directionArray.length <= 13) {
 			setDirectionArray([...directionArray, direction]);
@@ -47,18 +49,22 @@ const FunctionalPanel = (props: Props) => {
 		}
 	};
 
+	// Function to handle drag events and set the dragged direction
 	const handleOnDrag = (e: React.DragEvent, direction: string) => {
 		e.dataTransfer.setData("direction", direction);
 	};
 
+	// Function to handle drop events and add the dropped direction to the directionArray
 	const handleOnDrop = (e: React.DragEvent) => {
 		const newDirection = e.dataTransfer.getData("direction") as string;
 		validateDirection(newDirection);
 	};
 
+	// Function to control the interval-based robot movement
 	useInterval(
 		() => {
 			if (count < directionArray.length) {
+				// Robot movement logic based on directions in the directionArray
 				if (directionArray[count] === "Left" && position.x > 0) {
 					dispatch(setPosition({ x: position.x - 1, y: position.y }));
 				} else if (
@@ -71,6 +77,7 @@ const FunctionalPanel = (props: Props) => {
 				} else if (directionArray[count] === "Down" && position.y < 4) {
 					dispatch(setPosition({ x: position.x, y: position.y + 1 }));
 				} else {
+					// Robot attempted to move out of bounds
 					dispatch(
 						setInstructions(
 							`Robot is trying to move out of bounds.`
@@ -85,6 +92,7 @@ const FunctionalPanel = (props: Props) => {
 				);
 				dispatch(setNavSteps(count));
 			} else {
+				// Reached the end of directions
 				if (position.x === 4 && position.y === 4) {
 					dispatch(
 						setInstructions(
@@ -116,6 +124,7 @@ const FunctionalPanel = (props: Props) => {
 					className="flex flex-row gap-1 sm:gap-2 w-full h-5 sm:h-12 rounded outline-dashed"
 					onDrop={handleOnDrop}
 					onDragOver={(e: React.DragEvent) => e.preventDefault()}>
+					{/* Display the directions in the directionArray */}
 					{directionArray.map((string, i) => (
 						<li key={i}>
 							{string === "Left" ? (
@@ -135,6 +144,7 @@ const FunctionalPanel = (props: Props) => {
 			</div>
 			<div className="w-full flex flex-col items-center sm:flex-row gap-5 sm:gap-10 bg-indigo-950 p-5">
 				<div className="flex gap-5 sm:gap-2">
+					{/* Buttons for adding directions */}
 					{["Left", "Right", "Up", "Down"].map((string, i) => (
 						<div
 							key={i}
@@ -157,6 +167,7 @@ const FunctionalPanel = (props: Props) => {
 					))}
 				</div>
 				<div className="flex gap-5 sm:gap-2">
+					{/* Button for removing the last direction */}
 					<div
 						className="w-12 h-12 bg-slate-200 rounded flex justify-center items-center text-4xl cursor-pointer"
 						onClick={() => {
@@ -170,6 +181,7 @@ const FunctionalPanel = (props: Props) => {
 						}}>
 						<Backspace />
 					</div>
+					{/* Button for resetting the directions */}
 					<div
 						className="w-12 h-12 bg-slate-200 rounded flex justify-center items-center text-4xl cursor-pointer rotate-180"
 						onClick={() => {
