@@ -9,9 +9,7 @@ type Props = {};
 const StepDisplay = (props: Props) => {
 	const Instructions = useAppSelector(getInstructions);
 
-	useEffect(() => {
-		console.log(Instructions);
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<div className="flex justify-center items-center h-full">
