@@ -7,7 +7,7 @@ interface RoboState {
 	Position: { x: number; y: number };
 	IsPlaying: boolean;
 	hasPlayed: boolean;
-	Instructions?: string[];
+	Instructions: string[];
 }
 
 const initialState: RoboState = {
@@ -18,6 +18,7 @@ const initialState: RoboState = {
 	},
 	IsPlaying: false,
 	hasPlayed: false,
+	Instructions: [],
 };
 
 const roboSlice = createSlice({
@@ -50,7 +51,7 @@ const roboSlice = createSlice({
 			if (state.Instructions && state.Instructions.length + 1 > 11) {
 				state.Instructions.shift();
 			}
-			state.Instructions?.push(action.payload);
+			state.Instructions.push(action.payload);
 		},
 	},
 });

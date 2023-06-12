@@ -1,6 +1,6 @@
 "use client";
 import React, { use, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../redux Toolkit/hooks";
+import { useAppSelector } from "../redux Toolkit/hooks";
 import { getPosition } from "../redux Toolkit/slice/RoboSlice";
 import { FaRobot as Robot } from "react-icons/fa";
 
