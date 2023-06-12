@@ -12,7 +12,7 @@ const SimulationPanel = (props: Props) => {
 				<MdConstruction className="text-3xl text-white rounded" />
 				<span>Build</span>
 			</div>
-			<div className="h-full w-full bg-indigo-800 p-5 grid grid-cols-2">
+			<div className="h-full w-full bg-indigo-800 p-5 flex flex-col-reverse sm:grid sm:grid-cols-2 gap-5">
 				<SimulationGrid />
 				<StepDisplay />
 			</div>

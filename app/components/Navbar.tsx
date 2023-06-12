@@ -14,10 +14,14 @@ const Navbar = (props: Props) => {
 	const position = useAppSelector(getPosition);
 	const instructions = useAppSelector(getInstructions);
 	return (
-		<div className="w-full bg-indigo-950 px-5 py-5 font-semibold text-white flex items-center justify-between">
-			<span className="text-2xl w-1/3">Navbar</span>
-			<div className="w-2/3 flex justify-center items-center">
-				<div className="flex justify-between relative h-5 w-2/3">
+		<div
+			className="w-full bg-indigo-950 font-semibold p-7 pb-10 text-white flex flex-col gap-2 items-center justify-between
+			sm:p-5 sm:flex-row">
+			<span className="text-2xl w-full text-center sm:text-left sm:w-1/3">
+				Navbar
+			</span>
+			<div className="w-full sm:w-2/3 flex justify-center items-center">
+				<div className="flex justify-between relative h-5 w-full sm:w-2/3">
 					{NavSteps?.map((color, i) => (
 						<div key={i} className="z-10 text-[10px] text-center">
 							<TbCircle
@@ -36,7 +40,7 @@ const Navbar = (props: Props) => {
 							{i + 1}
 						</div>
 					))}
-					<div className="z-0 absolute w-full top-[9.5px] h-[1px] bg-white/30 flex justify-center items-center" />
+					<div className="hidden sm:flex justify-center items-center z-0 absolute w-full top-[9.5px] h-[1px] bg-white/30" />
 				</div>
 			</div>
 		</div>

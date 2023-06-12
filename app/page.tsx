@@ -14,11 +14,11 @@ const page = (props: Props) => {
 		<Provider store={store}>
 			<div className="w-screen h-screen flex flex-col">
 				<Navbar />
-				<div className="w-full h-full flex">
-					<div className="w-1/3 h-full">
+				<div className="w-full h-full flex flex-col sm:flex-row">
+					<div className="w-full h-full sm:w-1/3">
 						<LearnPanel />
 					</div>
-					<div className="w-2/3 h-full flex flex-col justify-between">
+					<div className="w-full h-full sm:w-2/3 flex flex-col justify-between">
 						<SimulationPanel />
 						<FunctionalPanel />
 					</div>

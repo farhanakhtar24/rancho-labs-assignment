@@ -113,19 +113,19 @@ const FunctionalPanel = (props: Props) => {
 			<div className="w-full bg-blue-500 p-5 text-lg text-white font-semibold flex flex-col gap-5">
 				Logic Panel
 				<ul
-					className="flex flex-row gap-2 w-full h-12 rounded outline-dashed"
+					className="flex flex-row gap-1 sm:gap-2 w-full h-5 sm:h-12 rounded outline-dashed"
 					onDrop={handleOnDrop}
 					onDragOver={(e: React.DragEvent) => e.preventDefault()}>
 					{directionArray.map((string, i) => (
 						<li key={i}>
 							{string === "Left" ? (
-								<HiArrowSmLeft className="w-12 h-12 bg-slate-200 text-black rounded" />
+								<HiArrowSmLeft className="w-5 h-5 sm:w-12 sm:h-12  bg-slate-200 text-black rounded" />
 							) : string === "Right" ? (
-								<HiArrowSmRight className="w-12 h-12 bg-slate-200 text-black rounded" />
+								<HiArrowSmRight className="w-5 h-5 sm:w-12 sm:h-12  bg-slate-200 text-black rounded" />
 							) : string === "Up" ? (
-								<HiArrowSmUp className="w-12 h-12 bg-slate-200 text-black rounded" />
+								<HiArrowSmUp className="w-5 h-5 sm:w-12 sm:h-12  bg-slate-200 text-black rounded" />
 							) : string === "Down" ? (
-								<HiArrowSmDown className="w-12 h-12 bg-slate-200 text-black rounded" />
+								<HiArrowSmDown className="w-5 h-5 sm:w-12 sm:h-12  bg-slate-200 text-black rounded" />
 							) : (
 								""
 							)}
@@ -133,9 +133,8 @@ const FunctionalPanel = (props: Props) => {
 					))}
 				</ul>
 			</div>
-			<div className="w-full flex gap-10  bg-indigo-950 p-5">
-				<div className="flex gap-2">
-					{/* // left arrow */}
+			<div className="w-full flex flex-col items-center sm:flex-row gap-5 sm:gap-10 bg-indigo-950 p-5">
+				<div className="flex gap-5 sm:gap-2">
 					{["Left", "Right", "Up", "Down"].map((string, i) => (
 						<div
 							key={i}
@@ -157,7 +156,7 @@ const FunctionalPanel = (props: Props) => {
 						</div>
 					))}
 				</div>
-				<div className="flex gap-2">
+				<div className="flex gap-5 sm:gap-2">
 					<div
 						className="w-12 h-12 bg-slate-200 rounded flex justify-center items-center text-4xl cursor-pointer"
 						onClick={() => {
