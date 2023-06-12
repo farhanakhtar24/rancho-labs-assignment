@@ -1,45 +1,10 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React from "react";
 import { useAppSelector } from "../redux Toolkit/hooks";
 import { getPosition } from "../redux Toolkit/slice/RoboSlice";
-import { FaRobot as Robot } from "react-icons/fa";
+import GridSquare from "./GridSquare";
 
 type Props = {};
-
-const GridSquare = ({
-	x_square,
-	y_square,
-	x_robo,
-	y_robo,
-}: {
-	x_square: number;
-	y_square: number;
-	x_robo: number;
-	y_robo: number;
-}) => {
-	return (
-		<div
-			className={`w-full h-full border border-gray-500 ${
-				x_square === 4 && y_square === 4
-					? "bg-cyan-500"
-					: "bg-yellow-500"
-			}`}>
-			{x_square === x_robo && y_square === y_robo ? (
-				<div className="w-full h-full flex justify-center items-center">
-					<Robot
-						className={`text-3xl ${
-							x_robo === 4 && y_robo === 4
-								? "animate-bounce text-green-100"
-								: "text-yellow-50"
-						}`}
-					/>
-				</div>
-			) : (
-				""
-			)}
-		</div>
-	);
-};
 
 const SimulationGrid = () => {
 	const { x, y } = useAppSelector(getPosition);
@@ -65,5 +30,3 @@ const SimulationGrid = () => {
 };
 
 export default SimulationGrid;
-
-//					 ${x === 4 && y === 4 ? "animate-spin duration-300" : "animate-none"}

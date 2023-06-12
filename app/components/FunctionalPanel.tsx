@@ -20,6 +20,7 @@ import {
 	getHasPlayed,
 	setHasPlayed,
 	setInstructions,
+	setNavSteps,
 } from "../redux Toolkit/slice/RoboSlice";
 import { useInterval } from "usehooks-ts";
 
@@ -27,13 +28,15 @@ type Props = {};
 
 const FunctionalPanel = (props: Props) => {
 	const dispatch = useAppDispatch();
-	const [count, setCount] = useState<number>(0);
+
 	const position = useAppSelector(getPosition);
 	const isPlaying = useAppSelector(getIsPlaying);
 	const hasPlayed = useAppSelector(getHasPlayed);
 	const [directionArray, setDirectionArray] = useState<string[]>(
 		useAppSelector(getDirections)
 	);
+
+	const [count, setCount] = useState<number>(0);
 
 	const validateDirection = (direction: string) => {
 		if (directionArray.length <= 13) {
@@ -80,6 +83,7 @@ const FunctionalPanel = (props: Props) => {
 				dispatch(
 					setInstructions(`Robot Move ${directionArray[count]}.`)
 				);
+				dispatch(setNavSteps(count));
 			} else {
 				if (position.x === 4 && position.y === 4) {
 					dispatch(
