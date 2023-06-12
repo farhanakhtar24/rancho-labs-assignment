@@ -19,8 +19,10 @@ const GridSquare = ({
 }) => {
 	return (
 		<div
-			className={`w-full h-full bg-yellow-500 border border-gray-500 ${
-				x_square === 4 && y_square === 4 ? "bg-cyan-500" : ""
+			className={`w-full h-full border border-gray-500 ${
+				x_square === 4 && y_square === 4
+					? "bg-cyan-500"
+					: "bg-yellow-500"
 			}`}>
 			{x_square === x_robo && y_square === y_robo ? (
 				<div className="w-full h-full flex justify-center items-center">
