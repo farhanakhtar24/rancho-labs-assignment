@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { useInterval } from "usehooks-ts";
-import { stat } from "fs";
 
 interface RoboState {
 	Directions: string[];
 	Position: { x: number; y: number };
 	IsPlaying: boolean;
+	hasPlayed: boolean;
 }
 
 const initialState: RoboState = {
@@ -16,6 +15,7 @@ const initialState: RoboState = {
 		y: 0,
 	},
 	IsPlaying: false,
+	hasPlayed: false,
 };
 
 const roboSlice = createSlice({
@@ -28,12 +28,11 @@ const roboSlice = createSlice({
 		deleteDirection: (state) => {
 			state.Directions.pop();
 		},
-		clearDirections: (state) => {
-			state.Directions = [];
-		},
 		reset: (state) => {
 			state.Directions = [];
 			state.Position = { x: 0, y: 0 };
+			state.IsPlaying = false;
+			state.hasPlayed = false;
 		},
 		setPosition: (state, action) => {
 			state.Position = action.payload;
@@ -41,20 +40,24 @@ const roboSlice = createSlice({
 		setPlay: (state, action) => {
 			state.IsPlaying = action.payload;
 		},
+		setHasPlayed: (state, action) => {
+			state.hasPlayed = action.payload;
+		},
 	},
 });
 
 export const {
 	addDirection,
 	setPosition,
-	clearDirections,
 	deleteDirection,
 	reset,
 	setPlay,
+	setHasPlayed,
 } = roboSlice.actions;
 
 export const getDirections = (state: RootState) => state.robo.Directions;
 export const getPosition = (state: RootState) => state.robo.Position;
 export const getIsPlaying = (state: RootState) => state.robo.IsPlaying;
+export const getHasPlayed = (state: RootState) => state.robo.hasPlayed;
 
 export default roboSlice.reducer;

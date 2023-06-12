@@ -1,6 +1,7 @@
 import React from "react";
 import { MdConstruction } from "react-icons/md";
 import SimulationGrid from "./SimulationGrid";
+import StepDisplay from "./StepDisplay";
 
 type Props = {};
 
@@ -13,6 +14,7 @@ const SimulationPanel = (props: Props) => {
 			</div>
 			<div className="h-full w-full bg-indigo-800 p-5 grid grid-cols-2">
 				<SimulationGrid />
+				<StepDisplay />
 			</div>
 		</div>
 	);

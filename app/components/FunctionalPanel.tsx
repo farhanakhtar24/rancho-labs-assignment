@@ -10,7 +10,6 @@ import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { useAppDispatch, useAppSelector } from "../redux Toolkit/hooks";
 import {
 	addDirection,
-	clearDirections,
 	deleteDirection,
 	reset,
 	getDirections,
@@ -18,6 +17,8 @@ import {
 	getPosition,
 	getIsPlaying,
 	setPlay,
+	getHasPlayed,
+	setHasPlayed,
 } from "../redux Toolkit/slice/RoboSlice";
 import { useInterval } from "usehooks-ts";
 
@@ -28,6 +29,7 @@ const FunctionalPanel = (props: Props) => {
 	const [count, setCount] = useState<number>(0);
 	const position = useAppSelector(getPosition);
 	const isPlaying = useAppSelector(getIsPlaying);
+	const hasPlayed = useAppSelector(getHasPlayed);
 	const [directionArray, setDirectionArray] = useState<string[]>(
 		useAppSelector(getDirections)
 	);
@@ -65,18 +67,18 @@ const FunctionalPanel = (props: Props) => {
 				} else if (directionArray[count] === "Down" && position.y < 4) {
 					dispatch(setPosition({ x: position.x, y: position.y + 1 }));
 				} else {
-					alert("Robot is out of bounds");
-					setDirectionArray([]);
+					alert("Robot is trying to move out of bounds");
 					setCount(0);
-					dispatch(reset());
 					dispatch(setPlay(false));
 					return;
 				}
 			} else {
-				alert("Robot has finished its path");
-				setDirectionArray([]);
+				// if (position.x === 4 && position.y === 4) {
+				// 	alert("Robot has reached the destination point");
+				// } else {
+				// 	alert("Robot has not reached the destination point");
+				// }
 				setCount(0);
-				dispatch(reset());
 				dispatch(setPlay(false));
 				return;
 			}
@@ -158,16 +160,19 @@ const FunctionalPanel = (props: Props) => {
 						<Reset />
 					</div>
 					{/* play button */}
-					<div
-						className="h-12 px-3 bg-slate-200 rounded flex items-center text-xl cursor-pointer font-bold"
-						onClick={() => {
-							if (directionArray.length === 0)
-								return alert("Please add directions");
-							dispatch(setPlay(true));
-						}}>
-						<PlayIcon className="w-10 h-10" />
-						<span className="pr-2">Play</span>
-					</div>
+					{hasPlayed ? null : (
+						<div
+							className="h-12 px-3 bg-slate-200 rounded flex items-center text-xl cursor-pointer font-bold"
+							onClick={() => {
+								if (directionArray.length === 0)
+									return alert("Please add directions");
+								dispatch(setPlay(true));
+								dispatch(setHasPlayed(true));
+							}}>
+							<PlayIcon className="w-10 h-10" />
+							<span className="pr-2">Play</span>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

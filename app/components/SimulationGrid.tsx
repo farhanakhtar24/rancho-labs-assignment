@@ -20,11 +20,17 @@ const GridSquare = ({
 	return (
 		<div
 			className={`w-full h-full bg-yellow-500 border border-gray-500 ${
-				x_square === 4 && y_square === 4 ? "bg-orange-500" : ""
+				x_square === 4 && y_square === 4 ? "bg-cyan-500" : ""
 			}`}>
 			{x_square === x_robo && y_square === y_robo ? (
 				<div className="w-full h-full flex justify-center items-center">
-					<Robot className={`text-3xl text-yellow-50`} />
+					<Robot
+						className={`text-3xl ${
+							x_robo === 4 && y_robo === 4
+								? "animate-bounce text-green-100"
+								: "text-yellow-50"
+						}`}
+					/>
 				</div>
 			) : (
 				""
@@ -41,7 +47,6 @@ const SimulationGrid = () => {
 			{/* {make a grid of 25 boxes with 5 rows and 5 coloumns} */}
 			<div
 				className={`w-[310px] h-[310px] grid grid-cols-5 grid-rows-5 shadow-2xl 
-					${x === 4 && y === 4 ? "animate-spin duration-300" : "animate-none"}
 				`}>
 				{[...Array(25)].map((_, i) => (
 					<GridSquare
@@ -58,3 +63,5 @@ const SimulationGrid = () => {
 };
 
 export default SimulationGrid;
+
+//					 ${x === 4 && y === 4 ? "animate-spin duration-300" : "animate-none"}
